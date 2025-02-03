@@ -1,58 +1,108 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;800;900&family=Open+Sans:ital,wght@0,700;1,400&display=swap');
-
-:root {
-    --primary-color: rgb(35, 103, 130);
-    --primary-color-darker: rgb(19, 62, 79);
-}
-
-* {
-    box-sizing: border-box;
-    outline: 0;
-}
-
+/* Estilização Geral */
 body {
-    margin: 0;
-    padding: 0;
-    background-color: var(--primary-color);
-    font-family: 'Open Sans', sans-serif;
-    font-size: 0.5em;
-    line-height: 1.5em;
+    font-family: "Poppins", sans-serif;
+    background: #ada2d3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
+/* Container da Lista */
 .container {
-    max-width: 640px;
-    margin: 50px auto;
-    background: #fff;
-    padding: 20px; 
-    border-radius: 10px;
+    background:#cfbcd9;
+    padding: 60px;
+    width: 350px;
+    border-radius:15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+    text-align: center;
 }
 
-form input, form label, form button {
-    display: block;
+/* Input de Tarefa */
+.task-input {
     width: 100%;
-    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #8f8f8f;
+    border-radius: 5px;
+    outline: none;
 }
 
-form input {
-    font-size: 10px;
-    height: 30px;
-}
-
-form input:focus {
-    outline: 1px solid var(--primary-color);
-}
-
-form button {
-    border: none;
-    background-color: var(--primary-color);
+/* Botão de Adicionar */
+.add-task-button {
+    background: #788bc5;
     color: #fff;
-    font-size: 10px;
-    font-weight: bold;
-    height: 30px;
+    border: none;
+    padding: 10px 15px;
     cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.add-task-button:hover {
+    background: #2b6ac8;
+}
+
+/* Lista de Tarefas */
+.tasks {
+    list-style: none;
+    padding: 0;
     margin-top: 20px;
 }
 
-form button:hover {
-    background: var(--primary-color-darker);
+/* Tarefa Individual */
+.tasks li {
+    background: #ead2e6;
+    padding: 10px;
+    margin: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease;
+}
+
+/* Efeito ao passar o mouse */
+.tasks li:hover {
+    background: #f1f1f1;
+}
+
+/* Botões */
+button {
+    cursor: pointer;
+    border: none;
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Botão Concluir */
+.complete {
+    background: #788bc5;
+    color: white;
+    margin-right: 10px;
+}
+
+.complete:hover {
+    background: #2b6ac8;
+}
+
+/* Botão Apagar */
+.delete {
+    background: #788bc5;
+    color: white;
+    margin-left: auto;
+    margin-right: 5px;
+}
+
+.delete:hover {
+    background: #2b6ac8;
+}
+
+/* Tarefa Concluída */
+.completed {
+    text-decoration: line-through;
+    color: #888;
+    background: #d3ffd3 !important;
 }

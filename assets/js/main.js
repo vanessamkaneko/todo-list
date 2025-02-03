@@ -1,77 +1,108 @@
+// 1️. Selecionando elementos do DOM
 const taskInput = document.querySelector('.task-input');
 const addTaskButton = document.querySelector('.add-task-button');
 const tasks = document.querySelector('.tasks');
 
-function createdTask() {
-    const task = document.createElement('li');
-    return task;
+// 2️. Função para criar uma tarefa (elemento <li>)
+function createTaskElement() {
+    return document.createElement('li');
 }
 
-taskInput.addEventListener('keypress', function(e) {
-    if(e.keyCode === 13) { //o keycode do Enter é 13
-        if(!taskInput.value) return;
-        createTask(taskInput.value);
-    }
-})
+// 3️. Função para criar uma nova tarefa e adicioná-la à lista
+function createTask(inputText, completed = false) {
+    const task = createTaskElement();
+    task.innerText = inputText;
 
+    if (completed) {
+        task.classList.add('completed'); // Se já estava concluída, adiciona a classe
+    }
+
+    tasks.appendChild(task);
+    cleanInput();
+    createDeleteButton(task);
+    createCompleteButton(task);
+    saveTasks();
+}
+
+// 4️. Função para criar botão "Apagar" e remover a tarefa
+function createDeleteButton(task) {
+    task.innerText += '  ';
+    const deleteButton = document.createElement('button');
+    deleteButton.innerText = '🗑️';
+    deleteButton.setAttribute('class', 'delete'); 
+    task.appendChild(deleteButton);
+}
+
+// 5️. Função para criar botão "Concluir" e marcar/desmarcar a tarefa como concluída
+function createCompleteButton(task) {
+    const completeButton = document.createElement('button');
+    completeButton.innerText = '✅';
+    completeButton.setAttribute('class', 'complete');
+
+    completeButton.addEventListener('click', function () {
+        task.classList.toggle('completed'); // Marca ou desmarca como concluída
+        saveTasks();
+    });
+
+    task.appendChild(completeButton);
+}
+
+// 6️. Limpa o campo de entrada após adicionar uma tarefa
 function cleanInput() {
     taskInput.value = '';
     taskInput.focus();
 }
 
-function createDeleteButton(task) {
-    task.innerText += '  ';
-    const deleteButton = document.createElement('button');
-    deleteButton.innerText = 'apagar';
-    deleteButton.setAttribute('class', 'delete'); //deleteButton receberá classe chamada delete
-    task.appendChild(deleteButton);
-}
-
-function createTask(inputText) {
-    const task = createdTask();
-    task.innerText = inputText;
-    tasks.appendChild(task);
-    cleanInput();
-    createDeleteButton(task);
-    saveTasks();
-};
-
-addTaskButton.addEventListener('click', function() {
-    if(!taskInput.value) return; //evita que se o campo estiver em branco, seja enviado 
-    createTask(taskInput.value);
-});
-
-document.addEventListener('click', function(e) {
-     const el = e.target; //captura elemento clicado
-
-     if(el.classList.contains('delete')) {
-        el.parentElement.remove(); //se el clicado tiver classe delete, será removido o elemento pai (o li criado)
-        saveTasks() // faz com que os dados do localStorage sejam atualizados qndo um item for apagado (não constando mais na lista o item apagado)
-     }
-})
-
+// 7️. Salva todas as tarefas no localStorage
 function saveTasks() {
-  const liTasks = tasks.querySelectorAll('li');
-  const tasksList = [];
+    const liTasks = tasks.querySelectorAll('li');
+    const tasksList = [];
 
-  for (let task of liTasks) {
-      const textTask = task.firstChild.textContent.trim(); // Pega apenas o texto da tarefa, sem incluir o botão "apagar"
-      tasksList.push(textTask);
-  }
+    for (let task of liTasks) {
+        tasksList.push({
+            text: task.firstChild.textContent.trim(), // Apenas o texto
+            completed: task.classList.contains('completed'), // Estado concluído
+        });
+    }
 
-  const tasksJSON = JSON.stringify(tasksList);
-  localStorage.setItem('tasks', tasksJSON);
+    localStorage.setItem('tasks', JSON.stringify(tasksList));
 }
 
+// 8️. Recupera e recria as tarefas ao carregar a página
 function addSavedTasks() {
-    const tasks = localStorage.getItem('tasks'); //recupera da memória do navegador os dados salvos com a chave 'tasks'
-    const tasksList = JSON.parse(tasks); //converte novamente para um elemento JS (no caso, um array)
+    const tasksStorage = localStorage.getItem('tasks');
+    if (!tasksStorage) return;
+
+    const tasksList = JSON.parse(tasksStorage);
 
     for (let task of tasksList) {
-        createTask(task);
+        createTask(task.text, task.completed);
     }
 }
 
-addSavedTasks();
+// 9️. Adiciona tarefa ao clicar no botão
+addTaskButton.addEventListener('click', function() {
+    if (!taskInput.value) return;  
+    createTask(taskInput.value);
+});
 
-//localStorage é como se fosse uma base de dados do navegador
+// 10. Adiciona tarefa ao pressionar "Enter"
+taskInput.addEventListener('keypress', function(e) {
+    if (e.keyCode === 13) { 
+        if (!taskInput.value) return;
+        createTask(taskInput.value);
+    }
+});
+
+// 1️1. Remove tarefa ao clicar no botão "Apagar"
+document.addEventListener('click', function(e) {
+    const el = e.target;
+
+    if (el.classList.contains('delete')) {
+        el.parentElement.remove(); 
+        saveTasks();
+    }
+});
+
+// 1️2. Chamada inicial para carregar tarefas salvas
+addSavedTasks();
