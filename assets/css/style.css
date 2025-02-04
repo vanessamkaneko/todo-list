@@ -1,21 +1,21 @@
-/* Estilização Geral */
 body {
     font-family: "Poppins", sans-serif;
-    background: #ada2d3;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+    url('abstract.jpg') no-repeat center center/cover;
+    margin: 0;
 }
 
 h1 {
-    color: #c766cc;
+    color: #955098;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Container da Lista */
 .container {
-    background:#cfbcd9;
+    background:#ba94cf;
     padding: 60px;
     width: 350px;
     border-radius:15px;
@@ -23,7 +23,6 @@ h1 {
     text-align: center;
 }
 
-/* Input de Tarefa */
 .task-input {
     width: 100%;
     padding: 10px;
@@ -33,9 +32,8 @@ h1 {
     outline: none;
 }
 
-/* Botão de Adicionar */
 .add-task-button {
-    background: #788bc5;
+    background: #824386;
     color: #fff;
     border: none;
     padding: 10px 15px;
@@ -45,17 +43,15 @@ h1 {
 }
 
 .add-task-button:hover {
-    background: #2b6ac8;
+    background: #b562bb;
 }
 
-/* Lista de Tarefas */
 .tasks {
     list-style: none;
     padding: 0;
     margin-top: 20px;
 }
 
-/* Tarefa Individual */
 .tasks li {
     background: #ead2e6;
     padding: 10px;
@@ -68,12 +64,10 @@ h1 {
     transition: background 0.3s ease;
 }
 
-/* Efeito ao passar o mouse */
 .tasks li:hover {
     background: #f1f1f1;
 }
 
-/* Botões */
 button {
     cursor: pointer;
     border: none;
@@ -82,45 +76,42 @@ button {
     font-size: 14px;
 }
 
-/* Botão Concluir */
 .complete {
-    background: #788bc5;
+    background: #824386;
     margin-right: 10px;
 }
 
 .complete:hover {
-    background: #2b6ac8;
+    background: #b562bb;
 }
 
-/* Botão Apagar */
 .delete {
-    background: #788bc5;
+    background: #824386;
     margin-left: auto;
     margin-right: 5px;
 }
 
 .delete:hover {
-    background: #2b6ac8;
+    background: #b562bb;
 }
 
-/* Tarefa Concluída */
 .completed {
     text-decoration: line-through;
     background: #d3ffd3 !important;
 }
 
 .edit {
-    background: #788bc5;
+    background: #824386;
 }
 
 .edit:hover {
-    background: #2b6ac8;
+    background: #b562bb;
 }
 
 .save {
-    background: #788bc5;
+    background: #824386
 }
 
 .save:hover {
-    background: #2b6ac8;
+    background: #b562bb;
 }
