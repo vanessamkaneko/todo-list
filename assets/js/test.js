@@ -14,14 +14,14 @@ function createTask(inputText, completed = false) {
     task.innerText = inputText;
 
     if (completed) {
-        task.classList.add('completed');
+        task.classList.add('completed'); // Se já estava concluída, adiciona a classe
     }
 
     tasks.appendChild(task);
     cleanInput();
     createDeleteButton(task);
     createCompleteButton(task);
-    createEditButton(task); // Adicionando botão de edição
+    createEditButton(task); // Adiciona o botão de edição
     saveTasks();
 }
 
@@ -54,58 +54,33 @@ function createEditButton(task) {
     editButton.setAttribute('class', 'edit');
 
     editButton.addEventListener('click', function () {
-        editTask(task);
+        const currentText = task.firstChild.textContent.trim();
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = currentText;
+
+        // Substituir o texto da tarefa pelo input
+        task.innerHTML = '';
+        task.appendChild(input);
+
+        // Criar botão de salvar
+        const saveButton = document.createElement('button');
+        saveButton.innerText = '💾';
+        saveButton.setAttribute('class', 'save');
+
+        saveButton.addEventListener('click', function () {
+            task.innerText = input.value; // Atualiza o texto da tarefa
+            createDeleteButton(task);
+            createCompleteButton(task);
+            createEditButton(task); // Recria o botão de edição
+            saveTasks();
+        });
+
+        task.appendChild(saveButton);
     });
 
     task.appendChild(editButton);
-
 }
-
-function editTask(task) {
-    const currentText = task.firstChild.textContent.trim();
-    
-    // Criando um input para edição
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.value = currentText;
-    input.classList.add('edit-input');
-    
-    // Substituir o texto pelo input
-    task.innerHTML = '';
-    task.appendChild(input);
-    input.focus();
-
-    // Criar botão de salvar
-    const saveButton = document.createElement('button');
-    saveButton.innerText = '💾';
-    saveButton.setAttribute('class', 'save');
-
-    saveButton.addEventListener('click', function () {
-        saveEditedTask(task, input);
-    });
-
-    // Salvar ao pressionar "Enter"
-    input.addEventListener('keypress', function (e) {
-        if (e.keyCode === 13) {
-            saveEditedTask(task, input);
-        }
-    });
-
-    task.appendChild(saveButton);
-}
-
-function saveEditedTask(task, input) {
-    const newText = input.value.trim();
-    if (newText === '') return; // Impede salvar uma tarefa vazia
-
-    task.innerText = newText; // Define o novo texto
-    createDeleteButton(task);
-    createCompleteButton(task);
-    createEditButton(task); // Recria os botões
-    
-    saveTasks(); // Atualiza o localStorage
-}
-
 
 // 7️. Limpa o campo de entrada após adicionar uma tarefa
 function cleanInput() {

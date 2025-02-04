@@ -8,6 +8,11 @@ body {
     height: 100vh;
 }
 
+h1 {
+    color: #c766cc;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 /* Container da Lista */
 .container {
     background:#cfbcd9;
@@ -80,7 +85,6 @@ button {
 /* Botão Concluir */
 .complete {
     background: #788bc5;
-    color: white;
     margin-right: 10px;
 }
 
@@ -91,7 +95,6 @@ button {
 /* Botão Apagar */
 .delete {
     background: #788bc5;
-    color: white;
     margin-left: auto;
     margin-right: 5px;
 }
@@ -103,6 +106,21 @@ button {
 /* Tarefa Concluída */
 .completed {
     text-decoration: line-through;
-    color: #888;
     background: #d3ffd3 !important;
+}
+
+.edit {
+    background: #788bc5;
+}
+
+.edit:hover {
+    background: #2b6ac8;
+}
+
+.save {
+    background: #788bc5;
+}
+
+.save:hover {
+    background: #2b6ac8;
 }
